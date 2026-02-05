@@ -42,6 +42,7 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.napoleon",
     "sphinx_gallery.gen_gallery",
+    "myst_parser",
 ]
 
 sphinx_gallery_conf = {
@@ -66,8 +67,10 @@ templates_path = ["_templates"]
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
-# source_suffix = ['.rst', '.md']
-source_suffix = ".rst"
+source_suffix = {
+    ".rst": "restructuredtext",
+    ".md": "markdown",
+}
 
 # The master toctree document.
 master_doc = "index"
