@@ -1,0 +1,806 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>How to Work with Dask for Large Datasets &#8212; Xugrid 0.14.3 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/theme-deltares.css?v=45942d5c" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=a9ba800c"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'how-to/work-with-dask';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Reference" href="../api.html" />
+    <link rel="prev" title="How to Convert Between Vector and Grid Formats" href="convert-vector-grid.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.14.3" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/xugrid-logo.svg" class="logo__image only-light" alt=""/>
+    <img src="../_static/xugrid-logo.svg" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">Xugrid</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    How-To Guides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev_docs.html">
+    Development
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Deltares/xugrid" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" class="icon-link-image" alt="GitHub"/></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://deltares.nl/en/" title="Deltares" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><img src="../_static/deltares-blue.svg" class="icon-link-image" alt="Deltares"/></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    How-To Guides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev_docs.html">
+    Development
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Deltares/xugrid" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" class="icon-link-image" alt="GitHub"/></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://deltares.nl/en/" title="Deltares" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><img src="../_static/deltares-blue.svg" class="icon-link-image" alt="Deltares"/></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Data I/O</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="load-ugrid-data.html">How to Load UGRID Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="save-to-netcdf-zarr.html">How to Save UGRID Data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Operations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="select-and-subset.html">How to Select and Subset Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regrid-between-grids.html">How to Regrid Between Grids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="convert-vector-grid.html">How to Convert Between Vector and Grid Formats</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scaling &amp; Performance</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">How to Work with Dask for Large Datasets</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">How-To Guides</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">How to Work with Dask for Large Datasets</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="how-to-work-with-dask-for-large-datasets">
+<h1>How to Work with Dask for Large Datasets<a class="headerlink" href="#how-to-work-with-dask-for-large-datasets" title="Link to this heading">#</a></h1>
+<p>This guide covers using Dask with xugrid to handle datasets too large to fit
+in memory, and to parallelize computations.</p>
+<section id="loading-data-lazily">
+<h2>Loading Data Lazily<a class="headerlink" href="#loading-data-lazily" title="Link to this heading">#</a></h2>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">xu.open_dataset()</span></code> loads data lazily using Dask:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xugrid</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xu</span>
+
+<span class="c1"># Data is NOT loaded into memory</span>
+<span class="n">uds</span> <span class="o">=</span> <span class="n">xu</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;large_model.nc&quot;</span><span class="p">)</span>
+
+<span class="c1"># Check that data is lazy (Dask array)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">uds</span><span class="p">[</span><span class="s2">&quot;temperature&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="c1"># &lt;dask.array&lt;...&gt;&gt;</span>
+</pre></div>
+</div>
+<p>Specify chunks for optimal performance:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Chunk along time dimension</span>
+<span class="n">uds</span> <span class="o">=</span> <span class="n">xu</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;large_model.nc&quot;</span><span class="p">,</span> <span class="n">chunks</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">})</span>
+
+<span class="c1"># Or let xarray choose chunks</span>
+<span class="n">uds</span> <span class="o">=</span> <span class="n">xu</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;large_model.nc&quot;</span><span class="p">,</span> <span class="n">chunks</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="loading-from-zarr">
+<h2>Loading from Zarr<a class="headerlink" href="#loading-from-zarr" title="Link to this heading">#</a></h2>
+<p>Zarr is inherently chunked and works seamlessly with Dask:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Zarr stores are naturally lazy</span>
+<span class="n">uds</span> <span class="o">=</span> <span class="n">xu</span><span class="o">.</span><span class="n">open_zarr</span><span class="p">(</span><span class="s2">&quot;large_model.zarr&quot;</span><span class="p">)</span>
+
+<span class="c1"># Remote data (S3, GCS, Azure)</span>
+<span class="n">uds</span> <span class="o">=</span> <span class="n">xu</span><span class="o">.</span><span class="n">open_zarr</span><span class="p">(</span><span class="s2">&quot;s3://bucket/model.zarr&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="lazy-computations">
+<h2>Lazy Computations<a class="headerlink" href="#lazy-computations" title="Link to this heading">#</a></h2>
+<p>Operations on Dask-backed arrays are lazy:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">uds</span> <span class="o">=</span> <span class="n">xu</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;large_model.nc&quot;</span><span class="p">,</span> <span class="n">chunks</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">})</span>
+<span class="n">temp</span> <span class="o">=</span> <span class="n">uds</span><span class="p">[</span><span class="s2">&quot;temperature&quot;</span><span class="p">]</span>
+
+<span class="c1"># These operations build a task graph, no computation yet</span>
+<span class="n">temp_celsius</span> <span class="o">=</span> <span class="n">temp</span> <span class="o">-</span> <span class="mf">273.15</span>
+<span class="n">temp_mean</span> <span class="o">=</span> <span class="n">temp_celsius</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+<span class="n">temp_anomaly</span> <span class="o">=</span> <span class="n">temp_celsius</span> <span class="o">-</span> <span class="n">temp_mean</span>
+
+<span class="c1"># Compute when ready</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">temp_anomaly</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="triggering-computation">
+<h2>Triggering Computation<a class="headerlink" href="#triggering-computation" title="Link to this heading">#</a></h2>
+<p>Several ways to trigger computation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Explicit compute</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">lazy_array</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+
+<span class="c1"># Load into memory</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">lazy_array</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+
+<span class="c1"># Save to file (computes as it writes)</span>
+<span class="n">lazy_array</span><span class="o">.</span><span class="n">ugrid</span><span class="o">.</span><span class="n">to_zarr</span><span class="p">(</span><span class="s2">&quot;output.zarr&quot;</span><span class="p">)</span>
+<span class="n">lazy_array</span><span class="o">.</span><span class="n">ugrid</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="s2">&quot;output.nc&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plotting (computes the visible data)</span>
+<span class="n">lazy_array</span><span class="o">.</span><span class="n">ugrid</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="using-a-dask-cluster">
+<h2>Using a Dask Cluster<a class="headerlink" href="#using-a-dask-cluster" title="Link to this heading">#</a></h2>
+<p>For large computations, use a distributed cluster:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dask.distributed</span><span class="w"> </span><span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">LocalCluster</span>
+
+<span class="c1"># Local cluster (uses all CPU cores)</span>
+<span class="n">cluster</span> <span class="o">=</span> <span class="n">LocalCluster</span><span class="p">()</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
+
+<span class="c1"># Now computations are distributed</span>
+<span class="n">uds</span> <span class="o">=</span> <span class="n">xu</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;large_model.nc&quot;</span><span class="p">,</span> <span class="n">chunks</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">})</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">uds</span><span class="p">[</span><span class="s2">&quot;temperature&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+
+<span class="c1"># View progress in dashboard</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">dashboard_link</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For HPC or cloud:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Connect to existing scheduler</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="s2">&quot;tcp://scheduler-address:8786&quot;</span><span class="p">)</span>
+
+<span class="c1"># Or use dask-jobqueue for HPC</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dask_jobqueue</span><span class="w"> </span><span class="kn">import</span> <span class="n">SLURMCluster</span>
+<span class="n">cluster</span> <span class="o">=</span> <span class="n">SLURMCluster</span><span class="p">(</span><span class="n">cores</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">memory</span><span class="o">=</span><span class="s2">&quot;16GB&quot;</span><span class="p">)</span>
+<span class="n">cluster</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">jobs</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="regridding-with-dask">
+<h2>Regridding with Dask<a class="headerlink" href="#regridding-with-dask" title="Link to this heading">#</a></h2>
+<p>Regridders work with Dask arrays:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">=</span> <span class="n">xu</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;source.nc&quot;</span><span class="p">,</span> <span class="n">chunks</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">})[</span><span class="s2">&quot;var&quot;</span><span class="p">]</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">xu</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">disk</span><span class="p">()</span>
+
+<span class="c1"># Create regridder</span>
+<span class="n">regridder</span> <span class="o">=</span> <span class="n">xu</span><span class="o">.</span><span class="n">OverlapRegridder</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">)</span>
+
+<span class="c1"># Regrid is lazy</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">regridder</span><span class="o">.</span><span class="n">regrid</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>  <span class="c1"># Dask array</span>
+
+<span class="c1"># Save lazily</span>
+<span class="n">result</span><span class="o">.</span><span class="n">ugrid</span><span class="o">.</span><span class="n">to_zarr</span><span class="p">(</span><span class="s2">&quot;regridded.zarr&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="chunking-strategies">
+<h2>Chunking Strategies<a class="headerlink" href="#chunking-strategies" title="Link to this heading">#</a></h2>
+<p>Unstructured grids have a single spatial dimension (faces), which affects
+chunking strategies:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Good: chunk along non-spatial dimensions</span>
+<span class="n">uds</span> <span class="o">=</span> <span class="n">xu</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;model.nc&quot;</span><span class="p">,</span> <span class="n">chunks</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s2">&quot;layer&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="c1"># Don&#39;t chunk the face dimension - it&#39;s the spatial dimension</span>
+<span class="p">})</span>
+
+<span class="c1"># The face dimension is typically not chunked because:</span>
+<span class="c1"># 1. Spatial operations need all faces</span>
+<span class="c1"># 2. Grid topology connects faces in complex patterns</span>
+</pre></div>
+</div>
+<p>For very large grids, consider partitioning instead of chunking:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Partition spatially (requires pymetis)</span>
+<span class="n">partitions</span> <span class="o">=</span> <span class="n">uds</span><span class="o">.</span><span class="n">ugrid</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="n">n_parts</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># Process partitions separately</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">partitions</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="c1"># Merge back</span>
+<span class="n">combined</span> <span class="o">=</span> <span class="n">xu</span><span class="o">.</span><span class="n">merge_partitions</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="memory-management">
+<h2>Memory Management<a class="headerlink" href="#memory-management" title="Link to this heading">#</a></h2>
+<p>Monitor and control memory usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check chunk sizes</span>
+<span class="n">uds</span> <span class="o">=</span> <span class="n">xu</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;model.nc&quot;</span><span class="p">,</span> <span class="n">chunks</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">uds</span><span class="p">[</span><span class="s2">&quot;temperature&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># Shows chunk sizes</span>
+
+<span class="c1"># Rechunk if needed</span>
+<span class="n">rechunked</span> <span class="o">=</span> <span class="n">uds</span><span class="p">[</span><span class="s2">&quot;temperature&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">chunk</span><span class="p">({</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">})</span>
+
+<span class="c1"># Persist intermediate results to cluster memory</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dask.distributed</span><span class="w"> </span><span class="kn">import</span> <span class="n">Client</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+
+<span class="n">intermediate</span> <span class="o">=</span> <span class="n">expensive_computation</span><span class="p">(</span><span class="n">uds</span><span class="p">)</span>
+<span class="n">intermediate</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">persist</span><span class="p">(</span><span class="n">intermediate</span><span class="p">)</span>  <span class="c1"># Keep in cluster memory</span>
+
+<span class="c1"># Use for multiple downstream computations</span>
+<span class="n">result1</span> <span class="o">=</span> <span class="n">analysis1</span><span class="p">(</span><span class="n">intermediate</span><span class="p">)</span>
+<span class="n">result2</span> <span class="o">=</span> <span class="n">analysis2</span><span class="p">(</span><span class="n">intermediate</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="writing-large-results">
+<h2>Writing Large Results<a class="headerlink" href="#writing-large-results" title="Link to this heading">#</a></h2>
+<p>Write results efficiently:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Zarr is best for Dask - writes chunks in parallel</span>
+<span class="n">result</span><span class="o">.</span><span class="n">ugrid</span><span class="o">.</span><span class="n">to_zarr</span><span class="p">(</span><span class="s2">&quot;output.zarr&quot;</span><span class="p">)</span>
+
+<span class="c1"># NetCDF works but is sequential</span>
+<span class="n">result</span><span class="o">.</span><span class="n">ugrid</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="s2">&quot;output.nc&quot;</span><span class="p">)</span>
+
+<span class="c1"># For very large results, compute in chunks</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_times</span><span class="p">,</span> <span class="n">chunk_size</span><span class="p">):</span>
+    <span class="n">chunk</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">t</span> <span class="o">+</span> <span class="n">chunk_size</span><span class="p">))</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+    <span class="n">chunk</span><span class="o">.</span><span class="n">ugrid</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;output_</span><span class="si">{</span><span class="n">t</span><span class="si">:</span><span class="s2">04d</span><span class="si">}</span><span class="s2">.nc&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="parallel-i-o-with-zarr">
+<h2>Parallel I/O with Zarr<a class="headerlink" href="#parallel-i-o-with-zarr" title="Link to this heading">#</a></h2>
+<p>Zarr enables parallel reads and writes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write in parallel (each worker writes its chunks)</span>
+<span class="n">result</span><span class="o">.</span><span class="n">ugrid</span><span class="o">.</span><span class="n">to_zarr</span><span class="p">(</span><span class="s2">&quot;output.zarr&quot;</span><span class="p">)</span>
+
+<span class="c1"># Read in parallel (each worker reads needed chunks)</span>
+<span class="n">uds</span> <span class="o">=</span> <span class="n">xu</span><span class="o">.</span><span class="n">open_zarr</span><span class="p">(</span><span class="s2">&quot;output.zarr&quot;</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">uds</span><span class="p">[</span><span class="s2">&quot;var&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>  <span class="c1"># Parallel reduction</span>
+</pre></div>
+</div>
+</section>
+<section id="debugging-dask-computations">
+<h2>Debugging Dask Computations<a class="headerlink" href="#debugging-dask-computations" title="Link to this heading">#</a></h2>
+<p>Visualize the task graph:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install graphviz for visualization</span>
+<span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="s2">&quot;task_graph.png&quot;</span><span class="p">)</span>
+
+<span class="c1"># Check task count</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">__dask_graph__</span><span class="p">()))</span>
+
+<span class="c1"># Profile execution</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dask.diagnostics</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProgressBar</span>
+<span class="k">with</span> <span class="n">ProgressBar</span><span class="p">():</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="common-pitfalls">
+<h2>Common Pitfalls<a class="headerlink" href="#common-pitfalls" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Accidental compute</strong>: Some operations trigger computation unexpectedly:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># These compute immediately:</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">uda</span><span class="p">)</span>           <span class="c1"># Needs to count</span>
+<span class="nb">float</span><span class="p">(</span><span class="n">uda</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>  <span class="c1"># Needs the value</span>
+<span class="n">uda</span><span class="o">.</span><span class="n">values</span>         <span class="c1"># Converts to numpy</span>
+
+<span class="c1"># These stay lazy:</span>
+<span class="n">uda</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>         <span class="c1"># Returns lazy array</span>
+<span class="n">uda</span><span class="o">.</span><span class="n">data</span>           <span class="c1"># Returns Dask array</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Chunking spatial dimension</strong>: Avoid chunking the face dimension:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Avoid this - breaks spatial operations</span>
+<span class="n">uds</span> <span class="o">=</span> <span class="n">xu</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;model.nc&quot;</span><span class="p">,</span> <span class="n">chunks</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;mesh2d_nFaces&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">})</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Too many tasks</strong>: Many small chunks create overhead:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Too granular</span>
+<span class="n">uds</span> <span class="o">=</span> <span class="n">xu</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;model.nc&quot;</span><span class="p">,</span> <span class="n">chunks</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+
+<span class="c1"># Better</span>
+<span class="n">uds</span> <span class="o">=</span> <span class="n">xu</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;model.nc&quot;</span><span class="p">,</span> <span class="n">chunks</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>Not using a scheduler</strong>: For large jobs, always use distributed:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dask.distributed</span><span class="w"> </span><span class="kn">import</span> <span class="n">Client</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>  <span class="c1"># Use local cluster at minimum</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="convert-vector-grid.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">How to Convert Between Vector and Grid Formats</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../api.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">API Reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-data-lazily">Loading Data Lazily</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-from-zarr">Loading from Zarr</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lazy-computations">Lazy Computations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#triggering-computation">Triggering Computation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-dask-cluster">Using a Dask Cluster</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regridding-with-dask">Regridding with Dask</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chunking-strategies">Chunking Strategies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-management">Memory Management</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-large-results">Writing Large Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-i-o-with-zarr">Parallel I/O with Zarr</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging-dask-computations">Debugging Dask Computations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-pitfalls">Common Pitfalls</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/how-to/work-with-dask.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright Deltares.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

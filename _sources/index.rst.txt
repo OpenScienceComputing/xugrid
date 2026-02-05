@@ -49,5 +49,6 @@ Installation
    :hidden:
 
    user_guide
+   how-to/index
    api
    dev_docs

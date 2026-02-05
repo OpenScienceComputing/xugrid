@@ -630,11 +630,11 @@ Ugrid2d grid.
            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], dtype=int32)
     Coordinates:
-      * mesh2d_nFaces  (mesh2d_nFaces) int64 800B 0 1 2 3 4 5 ... 94 95 96 97 98 99</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-obj-name'></div><ul class='xr-dim-list'><li><span class='xr-has-index'>mesh2d_nFaces</span>: 100</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-f3dff92e-e136-454d-8c41-5611ed447079' class='xr-array-in' type='checkbox' checked><label for='section-f3dff92e-e136-454d-8c41-5611ed447079' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span></div><div class='xr-array-data'><pre>array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+      * mesh2d_nFaces  (mesh2d_nFaces) int64 800B 0 1 2 3 4 5 ... 94 95 96 97 98 99</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-obj-name'></div><ul class='xr-dim-list'><li><span class='xr-has-index'>mesh2d_nFaces</span>: 100</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-2828ce57-0086-4029-a64d-6505d58596e3' class='xr-array-in' type='checkbox' checked><label for='section-2828ce57-0086-4029-a64d-6505d58596e3' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span></div><div class='xr-array-data'><pre>array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-           1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], dtype=int32)</pre></div></div></li><li class='xr-section-item'><input id='section-5f0f3485-09e6-4d68-bc43-9cf740782a91' class='xr-section-summary-in' type='checkbox' checked /><label for='section-5f0f3485-09e6-4d68-bc43-9cf740782a91' class='xr-section-summary' title='Expand/collapse section'>Coordinates: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>mesh2d_nFaces</span></div><div class='xr-var-dims'>(mesh2d_nFaces)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>0 1 2 3 4 5 6 ... 94 95 96 97 98 99</div><input id='attrs-bf572c9d-a481-427a-8bd6-b020cb854367' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-bf572c9d-a481-427a-8bd6-b020cb854367' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-5fedd554-2b0b-4694-9b40-03119e872391' class='xr-var-data-in' type='checkbox'><label for='data-5fedd554-2b0b-4694-9b40-03119e872391' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>[100 values with dtype=int64]</pre></div></li></ul></div></li></ul></div></div>
+           1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], dtype=int32)</pre></div></div></li><li class='xr-section-item'><input id='section-f50aa8e4-f944-4f11-aa26-0143a1d6df46' class='xr-section-summary-in' type='checkbox' checked /><label for='section-f50aa8e4-f944-4f11-aa26-0143a1d6df46' class='xr-section-summary' title='Expand/collapse section'>Coordinates: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>mesh2d_nFaces</span></div><div class='xr-var-dims'>(mesh2d_nFaces)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>0 1 2 3 4 5 6 ... 94 95 96 97 98 99</div><input id='attrs-93582e45-30f1-4493-9b86-7f6a754761a0' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-93582e45-30f1-4493-9b86-7f6a754761a0' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-a9aa5cc5-ff2b-4193-bade-26ea2066b69f' class='xr-var-data-in' type='checkbox'><label for='data-a9aa5cc5-ff2b-4193-bade-26ea2066b69f' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>[100 values with dtype=int64]</pre></div></li></ul></div></li></ul></div></div>
     </div>
     <br />
     <br />
@@ -1228,7 +1228,7 @@ nodes.
     </style><pre class='xr-text-repr-fallback'>&lt;xarray.DataArray (network1d_nNodes: 5)&gt; Size: 40B
     array([ 1. ,  1.5,  2. ,  4. , -4. ])
     Coordinates:
-      * network1d_nNodes  (network1d_nNodes) int64 40B 0 1 2 3 4</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-obj-name'></div><ul class='xr-dim-list'><li><span class='xr-has-index'>network1d_nNodes</span>: 5</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-2ae63c02-8db1-4534-b10c-0b2869791d44' class='xr-array-in' type='checkbox' checked><label for='section-2ae63c02-8db1-4534-b10c-0b2869791d44' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>1.0 1.5 2.0 4.0 -4.0</span></div><div class='xr-array-data'><pre>array([ 1. ,  1.5,  2. ,  4. , -4. ])</pre></div></div></li><li class='xr-section-item'><input id='section-8e1afe6d-ce72-419a-a4c0-6786c9b9404a' class='xr-section-summary-in' type='checkbox' checked /><label for='section-8e1afe6d-ce72-419a-a4c0-6786c9b9404a' class='xr-section-summary' title='Expand/collapse section'>Coordinates: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>network1d_nNodes</span></div><div class='xr-var-dims'>(network1d_nNodes)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>0 1 2 3 4</div><input id='attrs-6e59cbd1-a566-434e-ace7-73fa94b07d8f' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-6e59cbd1-a566-434e-ace7-73fa94b07d8f' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-ee0f5640-ebc1-4e7c-99cc-e9ee2f083b25' class='xr-var-data-in' type='checkbox'><label for='data-ee0f5640-ebc1-4e7c-99cc-e9ee2f083b25' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>[5 values with dtype=int64]</pre></div></li></ul></div></li></ul></div></div>
+      * network1d_nNodes  (network1d_nNodes) int64 40B 0 1 2 3 4</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-obj-name'></div><ul class='xr-dim-list'><li><span class='xr-has-index'>network1d_nNodes</span>: 5</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-6a1acc8a-26fc-415d-b412-334606ed2c56' class='xr-array-in' type='checkbox' checked><label for='section-6a1acc8a-26fc-415d-b412-334606ed2c56' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>1.0 1.5 2.0 4.0 -4.0</span></div><div class='xr-array-data'><pre>array([ 1. ,  1.5,  2. ,  4. , -4. ])</pre></div></div></li><li class='xr-section-item'><input id='section-02f8e5cf-b84a-423c-9374-a7c32a46622f' class='xr-section-summary-in' type='checkbox' checked /><label for='section-02f8e5cf-b84a-423c-9374-a7c32a46622f' class='xr-section-summary' title='Expand/collapse section'>Coordinates: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>network1d_nNodes</span></div><div class='xr-var-dims'>(network1d_nNodes)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>0 1 2 3 4</div><input id='attrs-31d6015e-a191-4002-8f36-59fc19684cfd' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-31d6015e-a191-4002-8f36-59fc19684cfd' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-792d82c5-0180-43fb-9d20-2c0015658c6f' class='xr-var-data-in' type='checkbox'><label for='data-792d82c5-0180-43fb-9d20-2c0015658c6f' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>[5 values with dtype=int64]</pre></div></li></ul></div></li></ul></div></div>
     </div>
     <br />
     <br />
@@ -1262,7 +1262,7 @@ values.
  .. code-block:: none
 
 
-    <matplotlib.collections.LineCollection object at 0x7f013ad0a7e0>
+    <matplotlib.collections.LineCollection object at 0x7f857fc52510>
 
 
 
@@ -1324,7 +1324,7 @@ Let's look at the intersection points.
  .. code-block:: none
 
 
-    <matplotlib.collections.PathCollection object at 0x7f013f5ec530>
+    <matplotlib.collections.PathCollection object at 0x7f857fdd9400>
 
 
 
@@ -2035,8 +2035,8 @@ NaN at the refined nodes. The original data will be set to the original nodes.
     array([ 1. ,  1.5,  2. ,  4. , -4. ,  nan,  nan,  nan,  nan,  nan,  nan,
             nan,  nan,  nan,  nan,  nan,  nan,  nan,  nan,  nan])
     Coordinates:
-      * network1d_nNodes  (network1d_nNodes) int64 160B 0 1 2 3 4 ... 15 16 17 18 19</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-obj-name'></div><ul class='xr-dim-list'><li><span class='xr-has-index'>network1d_nNodes</span>: 20</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-d1929939-d905-4302-b6a7-4378d62416a8' class='xr-array-in' type='checkbox' checked><label for='section-d1929939-d905-4302-b6a7-4378d62416a8' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>1.0 1.5 2.0 4.0 -4.0 nan nan nan ... nan nan nan nan nan nan nan nan</span></div><div class='xr-array-data'><pre>array([ 1. ,  1.5,  2. ,  4. , -4. ,  nan,  nan,  nan,  nan,  nan,  nan,
-            nan,  nan,  nan,  nan,  nan,  nan,  nan,  nan,  nan])</pre></div></div></li><li class='xr-section-item'><input id='section-e9ddffe3-0f62-41cb-b739-dc2b5bc7cd96' class='xr-section-summary-in' type='checkbox' checked /><label for='section-e9ddffe3-0f62-41cb-b739-dc2b5bc7cd96' class='xr-section-summary' title='Expand/collapse section'>Coordinates: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>network1d_nNodes</span></div><div class='xr-var-dims'>(network1d_nNodes)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>0 1 2 3 4 5 6 ... 14 15 16 17 18 19</div><input id='attrs-6f0e9771-03d9-4656-811a-5eed8e561cbd' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-6f0e9771-03d9-4656-811a-5eed8e561cbd' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-f4152c24-e384-4172-98bf-79aae054c709' class='xr-var-data-in' type='checkbox'><label for='data-f4152c24-e384-4172-98bf-79aae054c709' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>[20 values with dtype=int64]</pre></div></li></ul></div></li></ul></div></div>
+      * network1d_nNodes  (network1d_nNodes) int64 160B 0 1 2 3 4 ... 15 16 17 18 19</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-obj-name'></div><ul class='xr-dim-list'><li><span class='xr-has-index'>network1d_nNodes</span>: 20</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-9381080b-d963-4f4d-9064-dd1ee4ac25dc' class='xr-array-in' type='checkbox' checked><label for='section-9381080b-d963-4f4d-9064-dd1ee4ac25dc' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>1.0 1.5 2.0 4.0 -4.0 nan nan nan ... nan nan nan nan nan nan nan nan</span></div><div class='xr-array-data'><pre>array([ 1. ,  1.5,  2. ,  4. , -4. ,  nan,  nan,  nan,  nan,  nan,  nan,
+            nan,  nan,  nan,  nan,  nan,  nan,  nan,  nan,  nan])</pre></div></div></li><li class='xr-section-item'><input id='section-e5b2e598-1e06-457e-a5d9-6c372764f90d' class='xr-section-summary-in' type='checkbox' checked /><label for='section-e5b2e598-1e06-457e-a5d9-6c372764f90d' class='xr-section-summary' title='Expand/collapse section'>Coordinates: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>network1d_nNodes</span></div><div class='xr-var-dims'>(network1d_nNodes)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>0 1 2 3 4 5 6 ... 14 15 16 17 18 19</div><input id='attrs-9f0947c2-e4fd-4642-aa44-0c8287da26c1' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-9f0947c2-e4fd-4642-aa44-0c8287da26c1' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-38d9ebac-480c-411a-ad44-011b1e8fa7d9' class='xr-var-data-in' type='checkbox'><label for='data-38d9ebac-480c-411a-ad44-011b1e8fa7d9' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>[20 values with dtype=int64]</pre></div></li></ul></div></li></ul></div></div>
     </div>
     <br />
     <br />
@@ -2076,7 +2076,7 @@ that the two branches on the right-hand side are interpolated separately.
  .. code-block:: none
 
 
-    <matplotlib.collections.LineCollection object at 0x7f013f625e50>
+    <matplotlib.collections.LineCollection object at 0x7f85816d9b80>
 
 
 
@@ -2115,7 +2115,7 @@ the edges. This is done by using the edge_node_connectivity of the network.
  .. code-block:: none
 
 
-    <matplotlib.collections.LineCollection object at 0x7f013e3d1dc0>
+    <matplotlib.collections.LineCollection object at 0x7f857fddb650>
 
 
 
@@ -2153,7 +2153,7 @@ gridding and the data to grid.
  .. code-block:: none
 
 
-    <xugrid.regrid.gridder.NetworkGridder object at 0x7f013dd71c70>
+    <xugrid.regrid.gridder.NetworkGridder object at 0x7f8580016000>
 
 
 
@@ -2188,14 +2188,14 @@ Next, we can grid the data. Call the
  .. code-block:: none
 
 
-    <matplotlib.collections.LineCollection object at 0x7f013e604ef0>
+    <matplotlib.collections.LineCollection object at 0x7f857feb93d0>
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.337 seconds)
+   **Total running time of the script:** (0 minutes 0.334 seconds)
 
 
 .. _sphx_glr_download_examples_network_gridder.py:
