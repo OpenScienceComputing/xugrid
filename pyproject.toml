@@ -99,6 +99,7 @@ shapely = ">=2.0"
 scipy = "*"
 sphinx = "*"
 sphinx-gallery = "*"
+myst-parser = "*"
 xarray = "*"
 zarr = "*"
 ipykernel = "*"  # So we can run examples
