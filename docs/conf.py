@@ -43,6 +43,7 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx_gallery.gen_gallery",
     "myst_parser",
+    "sphinx_design",
 ]
 
 sphinx_gallery_conf = {

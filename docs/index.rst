@@ -8,8 +8,6 @@ Xugrid
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square
    :target: https://github.com/psf/black
 
-**This is a work in progress.**
-
 Xarray extension to work with 2D unstructured grids, for data and topology
 stored according to `UGRID conventions
 <https://ugrid-conventions.github.io/ugrid-conventions>`_.
@@ -43,6 +41,36 @@ Installation
 .. code:: console
 
    pip install xugrid
+
+Documentation
+-------------
+
+.. grid:: 1 2 2 2
+   :gutter: 3
+
+   .. grid-item-card:: Getting Started
+      :link: user_guide
+      :link-type: doc
+
+      Learn xugrid fundamentals: loading data, basic operations, and plotting unstructured grids.
+
+   .. grid-item-card:: How-To Guides
+      :link: how-to/index
+      :link-type: doc
+
+      Step-by-step instructions for common tasks: regridding, Dask integration, format conversion.
+
+   .. grid-item-card:: API Reference
+      :link: api
+      :link-type: doc
+
+      Complete documentation of all functions, classes, and methods.
+
+   .. grid-item-card:: Developer Guide
+      :link: dev_docs
+      :link-type: doc
+
+      Contributing guidelines and development setup.
 
 .. toctree::
    :titlesonly:
